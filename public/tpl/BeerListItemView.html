@@ -1,0 +1,16 @@
+<% 
+var url;
+if(_.pluck(beer_pictures, 'url')!='') {
+	url =_.pluck(beer_pictures, 'url');
+} 
+else {
+	url = 'generic.jpg';
+}
+
+%>
+      
+<a href="#beer/<%= _id %>" class="thumbnail plain" style="text-align: center;">
+    <img src="<%= url === null ? 'images/generic.jpg' : 'images/' + url %>" height="150" width="125" alt="">
+    <h5><%= beer_name %></h5>
+    <%=dateFormat(brew_date, "mmmm dS, yyyy")%>
+</a>

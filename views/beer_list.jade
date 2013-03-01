@@ -1,0 +1,14 @@
+extends layout
+block content
+  h1= title
+  p Beer List
+    #logo
+    img(src='/images/Oz.jpg')
+    #display            
+    -for (var id in beers)
+        - var beer = beers[id]
+        div
+            a(href='/beer/#{id}') #{beer.beer_name} - #{beer.format_brew_date}
+    p
+    
+    include footer

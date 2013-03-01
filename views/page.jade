@@ -1,0 +1,17 @@
+extends layout
+
+
+block content
+  p Add a new beer
+  #logo
+    img(src='/images/Oz.jpg')
+  #display
+      #login        
+  - if (typeof form !== 'undefined')
+    form(method='post')
+      != form
+      input(type='submit')
+  include footer
+  
+h1= title
+
