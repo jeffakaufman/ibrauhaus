@@ -15,8 +15,8 @@ var app = express();
 
 
 // Database
-mongoose.connect('mongodb://localhost/nodebeer'); 
-//mongoose.connect('mongodb://nodejitsu:c0accfe232007eefdb21f99349231bab@linus.mongohq.com:10076/nodejitsudb8966990062'); 
+//mongoose.connect('mongodb://localhost/nodebeer'); 
+mongoose.connect('mongodb://nodejitsu:c0accfe232007eefdb21f99349231bab@linus.mongohq.com:10076/nodejitsudb8966990062'); 
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -49,6 +49,8 @@ app.get('/users', user.list);
 app.get('/beers', beers.beerlist);
 // show individual beer
 app.get('/beers/:id', beers.item);
+// show individual beer
+app.get('/beers/comments/:id', beers.beerComments);
 // update individual beer
 app.put('/beers/:id', beers.updateBeer);
 

@@ -1,4 +1,15 @@
-window.Beer = Backbone.Model.extend({
+window.Beer = Backbone.RelationalModel.extend({
+	relations: [
+			{
+				type: Backbone.HasMany,
+				relatedModel: 'BeerComments',
+				reverseRelation: {	
+					type: Backbone.HasOne,
+					key: 'beers',
+					includeInJSON: '_id'
+				}
+			}
+	],
 
     urlRoot: "/beers",
 
@@ -45,13 +56,13 @@ window.Beer = Backbone.Model.extend({
   		description: "",
   		type: "",
   		original_gravity: "",
-  		comments:"",
   		url:""
     }
 });
 
-var BeerComments = Backbone.Model.extend({
-
+var BeerComments = Backbone.RelationalModel.extend({
+	urlRoot: "/beers/comments",
+    idAttribute: "_id",
     defaults: {
     	_id:	null,
         body: 	"",
@@ -59,10 +70,13 @@ var BeerComments = Backbone.Model.extend({
     }
 });
 
+var BeerCommentsCollection = Backbone.Collection.extend({
+    model: BeerComments,
+	url: "/beers/comments",
+    idAttribute: "_id"
+});
+
 window.BeerCollection = Backbone.Collection.extend({
-
     model: Beer,
-
     url: "/beers"
-
 });

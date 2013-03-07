@@ -49,12 +49,23 @@
 
                     <div class="control-group">
                         <label for="Comments" class="control-label">comments:</label>
+                        
                     
                     	<div class="controls">
-                    	<ul class="comment-controls">
-                    		<%= _.template('BeerCommentsView', comments) %>
+                    	<ul class="control-controls">
+                    		<% _.each(comments, function(comment) { %>                 				
+                				<li>
+                					<div class="view">
+                						<input type="hidden" id="comment._id" name="comment._id" value="<%= comment._id %>">
+                						<i><%= dateFormat(comment.date, "mmmm dS, yyyy") %></i>
+                						<br/><%= comment.body %>
+                					</div>
+                					<div class="comment_body">
+                						<input id="comment_body" type="text" name="comment_body" value="<%= comment.body %>" />
+                					</div>
+                				</li>
+            				<% }); %>
             			</ul>	
-                    	</div>
                     
                     	<div class="controls">
                     		<div class="new_comment_btn btn">

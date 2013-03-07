@@ -88,6 +88,17 @@ exports.item = function(req, res) {
 	});
 };
 
+// handler for displaying the beers
+exports.beerComments = function(req, res) {
+	BeerModel.findById(req.params.id, function (err, beers) {
+		if (!err) {		
+			res.send(beers.comments);
+			//res.render('beer_list',{title: 'iBrau Cellar',beers : beers});
+		} else {
+			console.log(err);
+		}
+	}); 
+};
 
 
 // handler for updating individual beers
@@ -120,8 +131,8 @@ exports.updateBeer = function(req, res) {
 exports.page = function(req, res) {
     var name = req.query.name;
     var contents = {
-        about: 'Ninja Store sells the coolest ninja stuff in the world. Anyone shopping here is cool.',
-        contact: 'You can contact us at <address><strong>Ninja Store</strong>,<br>1, World Ninja Headquarters,<br>Ninja Avenue,<br>NIN80B7-JP,<br>Nihongo.</address>'
+        about: 'iBrau.',
+        contact: 'Try my cell'
     };
-    res.render('page', { title: 'Ninja Store - ' + name, username: req.session.username, content:contents[name] });
+    res.render('page', { title: 'iBrau', content:contents[name] });
 };

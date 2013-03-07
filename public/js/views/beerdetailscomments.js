@@ -1,80 +1,50 @@
 window.BeerCommentsView = Backbone.View.extend({
-
+	className: "beercomments",
+	
     initialize: function () {
-        this.render();
+    	_.bindAll(this);
+        //this.render();
     },
 
     render: function () {
-        $(this.el).html(this.template(this.model.toJSON()));
+        var beerComment = this.model;
+        //console.log(this.model);
+        var len = beerComment.length;
+		//_.bindAll(beerComment);
+        //$(this.el).html('<ul></ul>');
+
+        for (var i = 0; i < len; i++) {
+        	$(this.el).append(new BeerCommentItemView({model: beerComment[i]}).render().el);
+        }
+        return this;
+    }
+});
+
+window.BeerCommentItemView = Backbone.View.extend({
+    className: "beer-comments",
+
+    initialize: function () {
+        //this.model.bind("change", this.render, this);
+        //this.model.bind("destroy", this.close, this);
+        _.bindAll(this);
+    },
+
+    render: function () {
+        $(this.el).html(this.template(this.model));
         return this;
     },
 
     events: {
-        "change"        : "change",
-        "dbkclick .comment_body": "updateComment",
-        "dblclick .comment-controls"  : "editComment",
-        "click .new_comment_btn"   : "addComment",
-    },
-
-    change: function (event) {
-        // Remove any existing alert message
-        utils.hideAlert();
-
-        // Apply the change to the model
-        var target = event.target;
-        var change = {};
-        change[target.name] = target.value;
-        this.model.set(change);
-
-        // Run validation rule (if any) on changed item
-        var check = this.model.validateItem(target.id);
-        if (check.isValid === false) {
-            utils.addValidationError(target.id, check.message);
-        } else {
-            utils.removeValidationError(target.id);
-        }
+        "dblclick .view"  : "editComment",
     },
     
     editComment: function(e) {
-      	this.$el.find(".view").hide();
-      	this.$el.find(".edit").show();
-    },
-    
-    updateComment: function(e) {
-      if (e.keyCode == 13) {
-      	this.$el.find(".view").show();
-      	this.$el.find(".edit").hide();
-      	console.log(this.model.get("comment_body"));
-      }
+		this.$el.find(".view").hide();
+		this.$el.find(".comment_body").show();
+    	/*console.log($(e.currentTarget));
+      	$(this.currentTarget).data("id").$el.find(".view").hide();
+      	this.$el.find(".comment_body").show();*/
     },
     
 
-    beforeSave: function () {
-        var self = this;
-        var check = this.model.validateAll();
-        if (check.isValid === false) {
-            utils.displayValidationErrors(check.messages);
-            return false;
-        }
-        this.saveBeer();
-        return false;
-    },
-
-    saveBeer: function () {
-        var self = this;
-        console.log('updating ');
-        this.model.save(null, {
-            success: function (model) {
-                self.render();
-                app.navigate('beer/' + model.id, false);
-                utils.showAlert('Success!', 'Beer saved successfully', 'alert-success');
-                if(self.model.get("new_comment")) {
-                	self.model.set({new_comment: ""});
-                }
-            },
-            error: function () {
-                utils.showAlert('Error', 'An error occurred while trying to delete this item', 'alert-error');
-            }
-        });
-    }
 });

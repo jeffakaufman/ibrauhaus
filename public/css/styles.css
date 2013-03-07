@@ -123,7 +123,9 @@ legend {
     margin-top: 0px;
     margin-bottom: 0px;
 }
-
+.comment_body {
+	display: none;
+}
 
 .new_comment {
 	display: none;
