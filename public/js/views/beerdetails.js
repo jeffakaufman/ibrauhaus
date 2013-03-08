@@ -2,24 +2,19 @@ window.BeerView = Backbone.View.extend({
 
     initialize: function () {
     	this.myCommentElement = this.$el.find(".edit");
-    	var comments = this.model.get("comments");
-        this.render(comments);
+        this.render();
     },
 
-    render: function (comments) {
-        $(this.el).html(this.template(this.model.toJSON()));
-        var beerComments = new BeerCommentsView({model: comments});
-        beerComments.render();
-        $(this.el).append(beerComments.el);
-        //console.log(beerComments.el);
-        this.$("#beer_comments_list").append(beerComments.el);
+    render: function () {
+    	$(this.el).html(this.template(this.model.toJSON()));
+        var beerComments = new BeerCommentsView({model: this.model.get("comments")});
+        //beerComments.render();
+        this.$el.find('.beer_comments_list').append(beerComments.el);
         return this;
     },
 
     events: {
         "change"        : "change",
-        "dbkclick .comment_body": "updateComment",
-        "dblclick .view"  : "editComment",
         "click .new_comment_btn"   : "addComment",
         "click .save"   : "beforeSave",
         "click .delete" : "deleteWine",
@@ -51,7 +46,6 @@ window.BeerView = Backbone.View.extend({
 		var id = $(e.currentTarget).data("id");
 		var item = this.model.get("comments");
 		var name = item.get(id);
-		console.log(item);
     	/*console.log($(e.currentTarget));
       	$(this.currentTarget).data("id").$el.find(".view").hide();
       	this.$el.find(".comment_body").show();*/
