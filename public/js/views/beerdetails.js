@@ -63,8 +63,8 @@ window.BeerView = Backbone.View.extend({
     	//console.log(this.$el.find(commentField).val());
     	console.log(this.model.get("comments").indexOf());
     	console.log(this.model.get("comments"));
-      	//this.$el.find(viewItem).show();
-      	//this.$el.find(editItem).hide();
+      	this.$el.find(viewItem).show();
+      	this.$el.find(editItem).hide();
       	
      /* if (e.keyCode == 13) {
       	this.$el.find(".view").show();
