@@ -1,6 +1,6 @@
-   	<div class="view">             				
+   	<div class="view">
     	<%= body %> <i><%= dateFormat(date, "mmmm dS, yyyy") %></i> 
     </div>
     <div class="comment_body">
-        <input id="body" type="text" name="body" value="<%= body %>" />
+        <input id="body" data-id="<%= _id %>" type="text" name="body" value="<%= body %>" onChange="//console.log(this)" />
     </div>

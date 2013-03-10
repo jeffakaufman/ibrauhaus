@@ -2,14 +2,13 @@ window.BeerView = Backbone.View.extend({
 
     initialize: function () {
     	this.myCommentElement = this.$el.find(".edit");
+    	//this.beerComments = new BeerCommentsView({model: this.model.get("comments")});
         this.render();
     },
 
     render: function () {
-    	$(this.el).html(this.template(this.model.toJSON()));
-        var beerComments = new BeerCommentsView({model: this.model.get("comments")});
-        //beerComments.render();
-        this.$el.find('.beer_comments_list').append(beerComments.el);
+        $(this.el).html(this.template(this.model.toJSON()));
+        //this.$el.find('.beer_comments_list').append(this.beerComments.el);
         return this;
     },
 
@@ -17,7 +16,9 @@ window.BeerView = Backbone.View.extend({
         "change"        : "change",
         "click .new_comment_btn"   : "addComment",
         "click .save"   : "beforeSave",
-        "click .delete" : "deleteWine",
+        "click .delete" : "deleteWine",        
+        "dblclick .view"  : "editComment",
+        "focusout .comment_body"  : "updateComment",
         "drop #picture" : "dropHandler",
         "keypress .edit"  : "updateComment",
         "keypress .new_comment"  : "saveNewComment"
@@ -43,20 +44,33 @@ window.BeerView = Backbone.View.extend({
     },
     
     editComment: function(e) {
-		var id = $(e.currentTarget).data("id");
-		var item = this.model.get("comments");
-		var name = item.get(id);
-    	/*console.log($(e.currentTarget));
-      	$(this.currentTarget).data("id").$el.find(".view").hide();
-      	this.$el.find(".comment_body").show();*/
+    	//this.model.body = this.$el.find('input#body').val();	 	
+    	//console.log(this.$el.find('input#body').val());
+    	//console.log($(e.currentTarget).lastElementChild);
+    	var id = $(e.currentTarget).data("id");
+		var viewItem = 'div#'+id+'.view';
+		var editItem = 'div#'+id+'.comment_body';
+      	this.$el.find(viewItem).hide();
+      	this.$el.find(editItem).show();
     },
     
     updateComment: function(e) {
-      if (e.keyCode == 13) {
+    	var id = $(e.currentTarget).data("id");
+		var viewItem = 'div#'+id+'.view';
+		var editItem = 'div#'+id+'.comment_body';
+		var commentField = 'input#'+id;
+		//this.$el.find(commentField).val();
+    	//console.log(this.$el.find(commentField).val());
+    	console.log(this.model.get("comments").indexOf());
+    	console.log(this.model.get("comments"));
+      	//this.$el.find(viewItem).show();
+      	//this.$el.find(editItem).hide();
+      	
+     /* if (e.keyCode == 13) {
       	this.$el.find(".view").show();
       	this.$el.find(".edit").hide();
       	console.log(this.model.get("comment_body"));
-      }
+      }*/
     },
     
     addComment: function(e) {

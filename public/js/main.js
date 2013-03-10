@@ -45,7 +45,6 @@ var AppRouter = Backbone.Router.extend({
     beerComments: function(id) {
     	var beer = new Beer({_id: id});
         beer.fetch({success: function(){
-        	//console.log(beer.toJSON());
         	var comments = beer.get("comments");
             $("#content").html(new BeerCommentsView({model: comments}).el);
         }});

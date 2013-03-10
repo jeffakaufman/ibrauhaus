@@ -9,7 +9,6 @@
 
             <div class="row">
                 <div class="span8">
-
                     <div class="control-group">
                     </div>
 
@@ -47,25 +46,11 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                   <div class="control-group">
                         <label for="Comments" class="control-label">comments:</label>
-                        
-                    
                     	<div class="controls">
-                    	<ul class="control-controls">
-                    		<% _.each(comments, function(comment) { %>                 				
-                				<li>
-                					<div class="view">
-                						<input type="hidden" id="comment._id" name="comment._id" value="<%= comment._id %>">
-                						<i><%= dateFormat(comment.date, "mmmm dS, yyyy") %></i>
-                						<br/><%= comment.body %>
-                					</div>
-                					<div class="comment_body">
-                						<input id="comment_body" type="text" name="comment_body" value="<%= comment.body %>" />
-                					</div>
-                				</li>
-            				<% }); %>
-            			</ul>	
+                    		<div class="beer_comments_list"></div>
+                    	</div>
                     
                     	<div class="controls">
                     		<div class="new_comment_btn btn">
@@ -81,7 +66,7 @@
 
                 <div class="span4">
                     <div class="well" style="width: 180px;text-align: center;width:50%;margin: 0px auto;">
-                        <p><img id="picture" width="180" src="<%= url === null ? 'images/generic.jpg' : 'images/' + url %>"/></p>
+                       <!-- <p><img id="picture" width="180" src="<%= url === null ? 'images/generic.jpg' : 'images/' + url %>"/></p>-->
                         <p style="color:#999;">To change the picture, drag a new picture from your file system onto the box above.</p>
                     </div>
                 </div>

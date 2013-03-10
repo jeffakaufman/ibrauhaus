@@ -1,4 +1,5 @@
 window.BeerCommentsView = Backbone.View.extend({
+	tagName: 'div',
 	className: "beercomments",
 	
     initialize: function () {
@@ -18,22 +19,24 @@ window.BeerCommentsView = Backbone.View.extend({
 });
 
 window.BeerCommentItemView = Backbone.View.extend({
+	tagName: 'div',
+    
     className: "beer-comments",
 
     initialize: function () {
-        //this.model.bind("change", this.render, this);
-        //this.model.bind("destroy", this.close, this);
         _.bindAll(this);
+        this.update_body = this.$('update_body');
     },
 
     render: function () {
         $(this.el).html(this.template(this.model));
+        this.delegateEvents();
         return this;
     },
 
     events: {
         "dblclick .view"  : "editComment",
-        "focusout .comment_body"  : "saveComment",
+    	//"focusout .comment_body"  : "saveComment",
     },
     
     editComment: function(e) {
@@ -42,9 +45,10 @@ window.BeerCommentItemView = Backbone.View.extend({
     },
     
     saveComment: function(e) {
-    	console.log('hello,sailor');
-		this.$el.find(".view").show();
-		this.$el.find(".comment_body").hide();
+    	this.model.body = this.$el.find('input#body').val();	 	
+    	console.log(this.model);
+		/*this.$el.find(".view").show();
+		this.$el.find(".comment_body").hide();*/
     },
     
 

@@ -123,6 +123,7 @@ exports.updateBeer = function(req, res) {
 			});
 		});
 }
+
     
     
 

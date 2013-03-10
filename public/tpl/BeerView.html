@@ -9,6 +9,7 @@
 
             <div class="row">
                 <div class="span8">
+
                     <div class="control-group">
                     </div>
 
@@ -46,11 +47,23 @@
                         </div>
                     </div>
 
-                   <div class="control-group">
+                    <div class="control-group">
                         <label for="Comments" class="control-label">comments:</label>
+                        
+                    
                     	<div class="controls">
-                    		<div class="beer_comments_list"></div>
-                    	</div>
+                    		<div class="beer-comments">
+                    			<% _.each(comments, function(comment) { %>                 				
+                						<div class="view" data-id="<%= comment._id %>" id="<%= comment._id %>">
+                							<%= comment.body %> <i><%= dateFormat(comment.date, "mmmm dS, yyyy") %></i>
+                						</div>
+                						<div class="comment_body" id="<%= comment._id %>" data-id="<%= comment._id %>" >
+                							<input type="hidden" id="comment._id" name="comment._id" value="<%= comment._id %>">
+                							<input data-id="<%= comment._id %>" id="<%= comment._id %>" type="text" name="comment_body" value="<%= comment.body %>" />
+                						</div>
+            					<% }); %>
+            				</div>
+            			</div>	
                     
                     	<div class="controls">
                     		<div class="new_comment_btn btn">
@@ -60,7 +73,12 @@
                 				<textarea id="new_comment" name="new_comment" style="width: 90%;" rows="6"></textarea>
                 			</div>
                     	</div>
+                    	
+                    	
+                    	
+                    	
                     </div>
+                    
  
                 </div>
 

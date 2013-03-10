@@ -49,7 +49,7 @@ app.get('/users', user.list);
 app.get('/beers', beers.beerlist);
 // show individual beer
 app.get('/beers/:id', beers.item);
-// show individual beer
+// show individual beer comments
 app.get('/beers/comments/:id', beers.beerComments);
 // update individual beer
 app.put('/beers/:id', beers.updateBeer);
