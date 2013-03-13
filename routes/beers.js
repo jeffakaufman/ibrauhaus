@@ -108,6 +108,7 @@ exports.updateBeer = function(req, res) {
   		beer.description = req.body.description,
      	beer.type = req.body.type;
   		beer.original_gravity = req.body.original_gravity;
+  		beer.comments = req.body.comments;
   		if (req.body.new_comment){
     		console.log('adding comment: '+req.body.new_comment);
     		beer.comments.push( {body:req.body.new_comment});

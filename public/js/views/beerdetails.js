@@ -2,14 +2,14 @@ window.BeerView = Backbone.View.extend({
 
     initialize: function () {
     	this.myCommentElement = this.$el.find(".edit");
-    	//this.beerComments = new BeerCommentsView({model: this.model.get("comments")});
         this.render();
     },
 
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
-        //this.$el.find('.beer_comments_list').append(this.beerComments.el);
         return this;
+       	
+
     },
 
     events: {
@@ -27,7 +27,6 @@ window.BeerView = Backbone.View.extend({
     change: function (event) {
         // Remove any existing alert message
         utils.hideAlert();
-
         // Apply the change to the model
         var target = event.target;
         var change = {};
@@ -44,9 +43,6 @@ window.BeerView = Backbone.View.extend({
     },
     
     editComment: function(e) {
-    	//this.model.body = this.$el.find('input#body').val();	 	
-    	//console.log(this.$el.find('input#body').val());
-    	//console.log($(e.currentTarget).lastElementChild);
     	var id = $(e.currentTarget).data("id");
 		var viewItem = 'div#'+id+'.view';
 		var editItem = 'div#'+id+'.comment_body';
@@ -58,11 +54,8 @@ window.BeerView = Backbone.View.extend({
     	var id = $(e.currentTarget).data("id");
 		var viewItem = 'div#'+id+'.view';
 		var editItem = 'div#'+id+'.comment_body';
-		var commentField = 'input#'+id;
-		//this.$el.find(commentField).val();
-    	//console.log(this.$el.find(commentField).val());
-    	console.log(this.model.get("comments").indexOf());
-    	console.log(this.model.get("comments"));
+    	this.model.set('comments.'+event.target.id+'.body',event.target.value);
+    	this.beforeSave();
       	this.$el.find(viewItem).show();
       	this.$el.find(editItem).hide();
       	

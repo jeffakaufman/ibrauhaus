@@ -53,15 +53,20 @@
                     
                     	<div class="controls">
                     		<div class="beer-comments">
-                    			<% _.each(comments, function(comment) { %>                 				
+                    			<% var item = 0;
+                    				_.each(comments, function(comment) { %>                 				
                 						<div class="view" data-id="<%= comment._id %>" id="<%= comment._id %>">
+                							<input type="hidden" id="comment._id" name="comment._id" value="<%= comment._id %>">
                 							<%= comment.body %> <i><%= dateFormat(comment.date, "mmmm dS, yyyy") %></i>
                 						</div>
                 						<div class="comment_body" id="<%= comment._id %>" data-id="<%= comment._id %>" >
                 							<input type="hidden" id="comment._id" name="comment._id" value="<%= comment._id %>">
-                							<input data-id="<%= comment._id %>" id="<%= comment._id %>" type="text" name="comment_body" value="<%= comment.body %>" />
+                							<input data-id="<%= comment._id %>" id="<%= item %>" type="text" name="comment_body" value="<%= comment.body %>" />
                 						</div>
-            					<% }); %>
+            					<% 
+            					item++;
+            					
+            					}); %>
             				</div>
             			</div>	
                     

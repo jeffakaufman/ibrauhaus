@@ -1,16 +1,4 @@
-window.Beer = Backbone.RelationalModel.extend({
-	relations: [
-			{
-				type: Backbone.HasMany,
-				relatedModel: 'BeerComments',
-				reverseRelation: {	
-					type: Backbone.HasOne,
-					key: 'beers',
-					includeInJSON: '_id'
-				}
-			}
-	],
-
+window.Beer = Backbone.DeepModel.extend({
     urlRoot: "/beers",
 
     idAttribute: "_id",
@@ -51,28 +39,28 @@ window.Beer = Backbone.RelationalModel.extend({
 
     defaults: {
         _id: null,
-  		beer_name:  "",
-  		brew_date:  "",
-  		description: "",
-  		type: "",
-  		original_gravity: "",
-  		url:""
+   beer_name: "",
+   brew_date: "",
+   description: "",
+   type: "",
+   original_gravity: "",
+   url:""
     }
 });
 
 var BeerComments = Backbone.RelationalModel.extend({
-	urlRoot: "/beers/comments",
+urlRoot: "/beers/comments",
     idAttribute: "_id",
     defaults: {
-    	_id:	null,
-        body: 	"",
-        date: 	null
+     _id:	null,
+        body: "",
+        date: null
     }
 });
 
 var BeerCommentsCollection = Backbone.Collection.extend({
     model: BeerComments,
-	url: "/beers/comments",
+url: "/beers/comments",
     idAttribute: "_id"
 });
 

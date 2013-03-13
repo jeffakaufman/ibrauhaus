@@ -34,9 +34,9 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('home-menu');
     },
 
-    beerDetails: function (id) {
+    beerDetails: function (id) {    	
         var beer = new Beer({_id: id});
-        beer.fetch({success: function(){
+        beer.fetch({success: function(){        
             $("#content").html(new BeerView({model: beer}).el);
         }});
         this.headerView.selectMenuItem();
