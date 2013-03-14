@@ -8,8 +8,6 @@ window.BeerView = Backbone.View.extend({
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
-       	
-
     },
 
     events: {
@@ -20,8 +18,9 @@ window.BeerView = Backbone.View.extend({
         "dblclick .view"  : "editComment",
         "focusout .comment_body"  : "updateComment",
         "drop #picture" : "dropHandler",
+        "dragover #picture" : "dragoverHandler", 
         "keypress .edit"  : "updateComment",
-        "keypress .new_comment"  : "saveNewComment"
+        "keypress .new_comment"  : "saveNewComment",
     },
 
     change: function (event) {
@@ -51,19 +50,17 @@ window.BeerView = Backbone.View.extend({
     },
     
     updateComment: function(e) {
+    	//get el information for editted comment
     	var id = $(e.currentTarget).data("id");
 		var viewItem = 'div#'+id+'.view';
 		var editItem = 'div#'+id+'.comment_body';
+		
+		//update the comment in the model, then save the model
     	this.model.set('comments.'+event.target.id+'.body',event.target.value);
     	this.beforeSave();
-      	this.$el.find(viewItem).show();
+    	
+    	this.$el.find(viewItem).show();
       	this.$el.find(editItem).hide();
-      	
-     /* if (e.keyCode == 13) {
-      	this.$el.find(".view").show();
-      	this.$el.find(".edit").hide();
-      	console.log(this.model.get("comment_body"));
-      }*/
     },
     
     addComment: function(e) {
@@ -106,6 +103,10 @@ window.BeerView = Backbone.View.extend({
             }
         });
     },
+    
+    addImage: function(e) {
+      	console.log('hello,sailor');
+    },
 
     deleteWine: function () {
         this.model.destroy({
@@ -126,10 +127,15 @@ window.BeerView = Backbone.View.extend({
 
         // Read the image file from the local file system and display it in the img tag
         var reader = new FileReader();
+        
+        console.log(this.pictureFile);
         reader.onloadend = function () {
             $('#picture').attr('src', reader.result);
         };
         reader.readAsDataURL(this.pictureFile);
-    }
+    },
+    	dragoverHandler: function(event) {
+        	event.preventDefault();
+     } 
 
 });
